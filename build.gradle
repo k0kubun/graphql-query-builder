@@ -4,7 +4,7 @@ apply plugin: 'signing'
 
 group 'com.github.k0kubun'
 archivesBaseName = 'graphql-query-builder'
-version = '0.1.2-SNAPSHOT'
+version = '0.1.2'
 description = 'GraphQL query builder for Java'
 
 repositories {
