@@ -6,8 +6,19 @@ import static org.junit.Assert.*;
 
 public class GraphQLQueryBuilderTest
 {
-    @Test public void testBuild()
+    @Test public void buildEmptyQuery()
     {
-        GraphQL.createQueryBuilder();
+        String query = GraphQL.createQueryBuilder()
+            .build();
+        assertEquals("", query);
+    }
+
+    @Test public void buildFields()
+    {
+        String query = GraphQL.createQueryBuilder()
+            .field("id")
+            .field("name")
+            .build();
+        assertEquals("id\nname\n", query);
     }
 }
