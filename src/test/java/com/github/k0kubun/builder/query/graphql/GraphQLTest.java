@@ -5,7 +5,12 @@ import static org.junit.Assert.*;
 
 public class GraphQLTest
 {
-    @Test public void testBuild()
+    @Test public void testCreateQueryBuilder()
+    {
+        GraphQL.createQueryBuilder();
+    }
+
+    @Test public void testCreateObjectBuilder()
     {
         GraphQL.createObjectBuilder();
     }
