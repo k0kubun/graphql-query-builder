@@ -1,7 +1,7 @@
 package com.github.k0kubun.builder.query.graphql;
 
-import com.github.k0kubun.builder.query.graphql.builders.GraphQLObjectBuilder;
-import com.github.k0kubun.builder.query.graphql.builders.GraphQLQueryBuilder;
+import com.github.k0kubun.builder.query.graphql.builder.GraphQLObjectBuilder;
+import com.github.k0kubun.builder.query.graphql.builder.GraphQLQueryBuilder;
 
 public class GraphQL
 {

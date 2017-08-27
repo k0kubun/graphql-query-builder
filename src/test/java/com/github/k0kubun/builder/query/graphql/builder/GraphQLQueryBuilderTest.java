@@ -1,4 +1,4 @@
-package com.github.k0kubun.builder.query.graphql.builders;
+package com.github.k0kubun.builder.query.graphql.builder;
 
 import com.github.k0kubun.builder.query.graphql.GraphQL;
 import org.junit.Test;
@@ -19,6 +19,22 @@ public class GraphQLQueryBuilderTest
             .field("id")
             .field("name")
             .build();
-        assertEquals("id\nname\n", query);
+        assertEquals(
+                "id\n" +
+                "name\n",
+                query);
+    }
+
+    @Test public void buildEmptyObject()
+    {
+        String query = GraphQL.createQueryBuilder()
+            .object("query", GraphQL.createObjectBuilder()
+                .build()
+            )
+            .build();
+        assertEquals(
+                "query {\n" +
+                "}\n",
+                query);
     }
 }
