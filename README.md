@@ -25,10 +25,14 @@ you can write code in the following way.
 
 ```java
 import com.github.k0kubun.builder.query.graphql.GraphQL;
-import com.github.k0kubun.builder.query.graphql.PaginationParams;
+import java.util.HashMap;
+import java.util.Map;
+
+Map<String, String> userParams = new HashMap<>();
+userParams.put("name", "k0kubun");
 
 String query = GraphQL.createQueryBuilder()
-    .object("user", ImmutableMap.of("name", "k0kubun"), GraphQL.createObjectBuilder()
+    .object("user", userParams, GraphQL.createObjectBuilder()
         .field("name")
         .objects("friends", 10, "Y3Vyc29yMQ==", GraphQL.createObjectBuilder()
             .field("totalCount")
