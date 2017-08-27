@@ -1,4 +1,9 @@
 apply plugin: 'java'
+apply plugin: 'maven'
+
+group 'com.github.k0kubun'
+archivesBaseName = 'graphql-query-builder'
+version = '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -7,4 +12,48 @@ repositories {
 dependencies {
     compile 'com.google.guava:guava:23.0'
     testCompile 'junit:junit:4.12'
+}
+
+def deployUserName = 'k0kubun'
+def deployPassword = System.getenv()['OSSRH_PASSWORD']
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: deployUserName, password: deployPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: deployUserName, password: deployPassword)
+            }
+
+            pom.project {
+                name 'graphql-query-builder'
+                description 'GraphQL query builder for Java'
+                packaging 'jar'
+                url 'https://github.com/k0kubun/graphql-query-builder'
+                scm {
+                    connection 'scm:git:git://github.com/k0kubun/graphql-query-builder.git'
+                    developerConnection 'scm:git@github.com:k0kubun/graphql-query-builder.git'
+                    url 'https://github.com/k0kubun/graphql-query-builder'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'k0kubun'
+                        name 'Takashi Kokubun'
+                        email 'takashikkbn@gmail.com'
+                    }
+                }
+            }
+        }
+    }
 }
