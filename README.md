@@ -7,7 +7,7 @@ GraphQL query builder for Java
 To build following query,
 
 ```graphql
-user(name: "k0kubun") {
+user(name:"k0kubun") {
   name
   friends(first:10 after:"Y3Vyc29yMQ==") {
     totalCount
@@ -38,7 +38,7 @@ String query = GraphQL.createQueryBuilder()
             .field("totalCount")
             .object("edges", GraphQL.createObjectBuilder()
                 .field("cursor")
-                .object("node", GrpahQL.createObjectBuilder()
+                .object("node", GraphQL.createObjectBuilder()
                     .field("name")
                     .build()
                 ).build()

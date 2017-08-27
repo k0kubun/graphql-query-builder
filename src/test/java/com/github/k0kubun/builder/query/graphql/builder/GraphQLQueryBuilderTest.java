@@ -99,4 +99,68 @@ public class GraphQLQueryBuilderTest
                 "}\n",
                 query);
     }
+
+    @Test public void buildObjects()
+    {
+        String query = GraphQL.createQueryBuilder()
+            .object("user", ImmutableMap.of("name", "k0kubun"), GraphQL.createObjectBuilder()
+                .field("name")
+                .objects("friends", 10, GraphQL.createObjectBuilder()
+                    .field("totalCount")
+                    .object("edges", GraphQL.createObjectBuilder()
+                        .field("cursor")
+                        .object("node", GraphQL.createObjectBuilder()
+                            .field("name")
+                            .build()
+                        ).build()
+                    ).build()
+                ).build()
+            ).build();
+        assertEquals(
+                "user(name:\"k0kubun\") {\n" +
+                "  name\n" +
+                "  friends(first:10) {\n" +
+                "    totalCount\n" +
+                "    edges {\n" +
+                "      cursor\n" +
+                "      node {\n" +
+                "        name\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n",
+                query);
+    }
+
+    @Test public void buildPaginatedObjects()
+    {
+        String query = GraphQL.createQueryBuilder()
+            .object("user", ImmutableMap.of("name", "k0kubun"), GraphQL.createObjectBuilder()
+                .field("name")
+                .objects("friends", 10, "Y3Vyc29yMQ==", GraphQL.createObjectBuilder()
+                    .field("totalCount")
+                    .object("edges", GraphQL.createObjectBuilder()
+                        .field("cursor")
+                        .object("node", GraphQL.createObjectBuilder()
+                            .field("name")
+                            .build()
+                        ).build()
+                    ).build()
+                ).build()
+            ).build();
+        assertEquals(
+                "user(name:\"k0kubun\") {\n" +
+                "  name\n" +
+                "  friends(first:10 after:\"Y3Vyc29yMQ==\") {\n" +
+                "    totalCount\n" +
+                "    edges {\n" +
+                "      cursor\n" +
+                "      node {\n" +
+                "        name\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}\n",
+                query);
+    }
 }
