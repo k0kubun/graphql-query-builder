@@ -1,42 +1,39 @@
 package com.github.k0kubun.builder.query.graphql.builder;
 
+import com.github.k0kubun.builder.query.graphql.model.GraphQLField;
 import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
+import com.github.k0kubun.builder.query.graphql.model.StringField;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GraphQLQueryBuilder
 {
-    private final StringBuilder queryBuilder;
+    private final List<GraphQLField> fields;
 
     public GraphQLQueryBuilder()
     {
-        queryBuilder = new StringBuilder();
+        fields = new ArrayList<>();
     }
 
     public String build()
     {
-        return queryBuilder.toString();
+        StringBuilder builder = new StringBuilder();
+        for (GraphQLField field : fields) {
+            builder.append(field.indentRender(0));
+        }
+        return builder.toString();
     }
 
     public GraphQLQueryBuilder field(String name)
     {
-        appendln(name);
+        fields.add(new StringField(name));
         return this;
     }
 
     public GraphQLQueryBuilder object(String name, GraphQLObject object)
     {
         object.setName(name);
-        append(object.indentRender(0));
+        fields.add(object);
         return this;
-    }
-
-    private void append(String str)
-    {
-        queryBuilder.append(str);
-    }
-
-    private void appendln(String line)
-    {
-        queryBuilder.append(line);
-        queryBuilder.append("\n");
     }
 }
