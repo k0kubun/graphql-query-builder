@@ -24,10 +24,8 @@ public class GraphQLQueryBuilder
 
     public GraphQLQueryBuilder object(String name, GraphQLObject object)
     {
-        append(name);
-        appendln(" {");
+        object.setName(name);
         append(object.indentRender(0));
-        appendln("}");
         return this;
     }
 

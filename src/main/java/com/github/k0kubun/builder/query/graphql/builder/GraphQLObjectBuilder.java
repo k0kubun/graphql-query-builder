@@ -21,6 +21,13 @@ public class GraphQLObjectBuilder
         return this;
     }
 
+    public GraphQLObjectBuilder object(String name, GraphQLObject object)
+    {
+        object.setName(name);
+        fields.add(object);
+        return this;
+    }
+
     public GraphQLObject build()
     {
         return new GraphQLObject(fields);

@@ -30,8 +30,7 @@ public class GraphQLQueryBuilderTest
         String query = GraphQL.createQueryBuilder()
             .object("query", GraphQL.createObjectBuilder()
                 .build()
-            )
-            .build();
+            ).build();
         assertEquals(
                 "query {\n" +
                 "}\n",
@@ -45,12 +44,31 @@ public class GraphQLQueryBuilderTest
                 .field("hello")
                 .field("world")
                 .build()
-            )
-            .build();
+            ).build();
         assertEquals(
                 "query {\n" +
                 "  hello\n" +
                 "  world\n" +
+                "}\n",
+                query);
+    }
+
+    @Test public void buildNestedObject()
+    {
+        String query = GraphQL.createQueryBuilder()
+            .object("query", GraphQL.createObjectBuilder()
+                .field("hello")
+                .object("user", GraphQL.createObjectBuilder()
+                    .field("world")
+                    .build()
+                ).build()
+            ).build();
+        assertEquals(
+                "query {\n" +
+                "  hello\n" +
+                "  user {\n" +
+                "    world\n" +
+                "  }\n" +
                 "}\n",
                 query);
     }
