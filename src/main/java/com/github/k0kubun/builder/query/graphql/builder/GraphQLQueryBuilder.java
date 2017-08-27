@@ -26,6 +26,7 @@ public class GraphQLQueryBuilder
     {
         append(name);
         appendln(" {");
+        append(object.indentRender(0));
         appendln("}");
         return this;
     }

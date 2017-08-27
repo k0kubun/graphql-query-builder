@@ -37,4 +37,21 @@ public class GraphQLQueryBuilderTest
                 "}\n",
                 query);
     }
+
+    @Test public void buildObject()
+    {
+        String query = GraphQL.createQueryBuilder()
+            .object("query", GraphQL.createObjectBuilder()
+                .field("hello")
+                .field("world")
+                .build()
+            )
+            .build();
+        assertEquals(
+                "query {\n" +
+                "  hello\n" +
+                "  world\n" +
+                "}\n",
+                query);
+    }
 }
