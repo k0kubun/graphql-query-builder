@@ -1,4 +1,4 @@
-# graphql-query-builder
+# graphql-query-builder [![Build Status](https://travis-ci.org/k0kubun/graphql-query-builder.svg?branch=master)](https://travis-ci.org/k0kubun/graphql-query-builder)
 
 GraphQL query builder for Java
 
