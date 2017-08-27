@@ -3,7 +3,7 @@ apply plugin: 'maven'
 
 group 'com.github.k0kubun'
 archivesBaseName = 'graphql-query-builder'
-version = '0.1.0-SNAPSHOT'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
