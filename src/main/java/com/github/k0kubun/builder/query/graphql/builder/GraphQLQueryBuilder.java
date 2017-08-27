@@ -5,6 +5,7 @@ import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
 import com.github.k0kubun.builder.query.graphql.model.StringField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GraphQLQueryBuilder
 {
@@ -33,6 +34,14 @@ public class GraphQLQueryBuilder
     public GraphQLQueryBuilder object(String name, GraphQLObject object)
     {
         object.setName(name);
+        fields.add(object);
+        return this;
+    }
+
+    public GraphQLQueryBuilder object(String name, Map<String, Object> params, GraphQLObject object)
+    {
+        object.setName(name);
+        object.setParams(params);
         fields.add(object);
         return this;
     }
