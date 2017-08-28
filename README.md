@@ -2,6 +2,28 @@
 
 GraphQL query builder for Java
 
+## Installation
+
+### Maven (pom.xml)
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.github.k0kubun</groupId>
+        <artifactId>graphql-query-builder</artifactId>
+        <version>0.2.0</version>
+    </dependency>
+</dependencies>
+```
+
+### Gradle (build.gradle)
+
+```groovy
+dependencies {
+    compile 'com.github.k0kubun:graphql-query-builder:0.2.0'
+}
+```
+
 ## Usage
 
 To build following query,
