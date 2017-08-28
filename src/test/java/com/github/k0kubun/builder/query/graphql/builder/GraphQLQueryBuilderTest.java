@@ -163,4 +163,22 @@ public class GraphQLQueryBuilderTest
                 "}\n",
                 query);
     }
+
+    @Test public void buildInlineFragment()
+    {
+        String query = GraphQL.createQueryBuilder()
+            .object("node", GraphQL.createObjectBuilder()
+                .on("User", GraphQL.createObjectBuilder()
+                    .field("id")
+                    .build()
+                ).build()
+            ).build();
+        assertEquals(
+                "node {\n" +
+                "  ... on User {\n" +
+                "    id\n" +
+                "  }\n" +
+                "}\n",
+                query);
+    }
 }

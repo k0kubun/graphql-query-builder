@@ -54,6 +54,13 @@ public class GraphQLObjectBuilder
         return this;
     }
 
+    public GraphQLObjectBuilder on(String name, GraphQLObject object)
+    {
+        object.setName("... on " + name);
+        fields.add(object); // TODO: wrap some proper class
+        return this;
+    }
+
     public GraphQLObject build()
     {
         return new GraphQLObject(fields);

@@ -36,7 +36,9 @@ user(name:"k0kubun") {
     edges {
       cursor
       node {
-        name
+        ... on User {
+          name
+        }
       }
     }
   }
@@ -61,8 +63,10 @@ String query = GraphQL.createQueryBuilder()
             .object("edges", GraphQL.createObjectBuilder()
                 .field("cursor")
                 .object("node", GraphQL.createObjectBuilder()
-                    .field("name")
-                    .build()
+                    .on("User", GraphQL.createObjectBuilder()
+                        .field("name")
+                        .build()
+                    ).build()
                 ).build()
             ).build()
         ).build()
@@ -73,11 +77,8 @@ String query = GraphQL.createQueryBuilder()
 
 Experimental.
 
-### TODO
+### Unsupported features
 
-Following things are not supported yet.
-
-- Inline Fragment
 - `@include`
 - `@skip`
 - Mutation
