@@ -1,10 +1,12 @@
 package com.github.k0kubun.builder.query.graphql.model;
 
 import com.google.common.collect.ImmutableMap;
+
 import java.util.List;
 import java.util.Map;
 
-public class GraphQLObject implements GraphQLField
+public class GraphQLObject
+        implements GraphQLField
 {
     private String name;
     private Map<String, Object> params;
@@ -44,7 +46,8 @@ public class GraphQLObject implements GraphQLField
             for (Map.Entry<String, Object> param : params.entrySet()) {
                 if (first) {
                     first = false;
-                } else {
+                }
+                else {
                     builder.append(" ");
                 }
 
@@ -55,7 +58,8 @@ public class GraphQLObject implements GraphQLField
                     builder.append("\"");
                     builder.append(value.toString());
                     builder.append("\"");
-                } else {
+                }
+                else {
                     builder.append(value.toString());
                 }
             }

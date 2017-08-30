@@ -4,6 +4,7 @@ import com.github.k0kubun.builder.query.graphql.model.GraphQLField;
 import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
 import com.github.k0kubun.builder.query.graphql.model.StringField;
 import com.google.common.collect.ImmutableMap;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
