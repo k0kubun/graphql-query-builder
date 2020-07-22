@@ -1,3 +1,6 @@
+## v0.2.2
+- Updade Guava version
+
 ## v0.2.1
 
 - Inline Fragment by `on()`
