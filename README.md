@@ -86,6 +86,29 @@ Experimental.
 - Variables
 - Aliases
 
+## Release
+
+Create `~/.gradle/gradle.properties` like:
+
+```
+sonatypeUsername=k0kubun
+sonatypePassword=PASSWORD
+signing.keyId=KEYID
+signing.password=PASSWORD
+signing.secretKeyRingFile=/Users/k0kubun/.gnupg/secring.gpg
+```
+
+KEYID is the _last_ 8 characters of what's shown at `gpg -K`.
+
+Then run:
+
+```
+$ ./gradlew uploadArchives
+```
+
+At https://oss.sonatype.org/#stagingRepositories, push "Close" and then "Release".
+Sync to maven repository might take some time.
+
 ## License
 
 MIT License
