@@ -9,12 +9,12 @@ public class GraphQLTest
     @Test
     public void testCreateQueryBuilder()
     {
-        GraphQL.createQueryBuilder();
+        assertNotNull(GraphQL.createQueryBuilder());
     }
 
     @Test
     public void testCreateObjectBuilder()
     {
-        GraphQL.createObjectBuilder();
+        assertNotNull(GraphQL.createObjectBuilder());
     }
 }
