@@ -18,15 +18,6 @@ class QueryBuilderImpl implements QueryBuilder
         fields = new ArrayList<>();
     }
 
-    public String build()
-    {
-        StringBuilder builder = new StringBuilder();
-        for (GraphQLField field : fields) {
-            builder.append(field.indentRender(0));
-        }
-        return builder.toString();
-    }
-
     public QueryBuilderImpl field(String name)
     {
         fields.add(new StringField(name));
@@ -62,5 +53,14 @@ class QueryBuilderImpl implements QueryBuilder
         object.setParams(params);
         fields.add(object);
         return this;
+    }
+
+    public String build()
+    {
+        StringBuilder builder = new StringBuilder();
+        for (GraphQLField field : fields) {
+            builder.append(field.indentRender(0));
+        }
+        return builder.toString();
     }
 }

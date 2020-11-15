@@ -6,8 +6,6 @@ import java.util.Map;
 
 public interface QueryBuilder {
 
-    String build();
-
     QueryBuilderImpl field(String name);
 
     QueryBuilderImpl object(String name, GraphQLObject object);
@@ -17,4 +15,6 @@ public interface QueryBuilder {
     QueryBuilderImpl objects(String name, Integer first, String after, GraphQLObject object);
 
     QueryBuilderImpl object(String name, Map<String, Object> params, GraphQLObject object);
+
+    String build();
 }
