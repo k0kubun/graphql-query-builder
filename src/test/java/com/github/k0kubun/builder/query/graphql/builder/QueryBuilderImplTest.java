@@ -1,6 +1,5 @@
 package com.github.k0kubun.builder.query.graphql.builder;
 
-import com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder;
 import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
@@ -10,7 +9,7 @@ import java.util.Map;
 
 import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.createObjectBuilder;
 import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.createQueryBuilder;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class QueryBuilderImplTest
 {
@@ -199,17 +198,17 @@ public class QueryBuilderImplTest
     }
 
     @Test
-    public void quoteEscaped() {
+    public void escapeCharsVisible() {
         Map<String, Object> params = new HashMap<>();
-        params.put("articleTest", "contains\"quote");
+        params.put("articleTest", "contains\\\"quote");
 
         final GraphQLObject requestedFields = createObjectBuilder().field("numberOfPages").build();
         String query = createQueryBuilder().object("Article", params, requestedFields).build();
 
         assertEquals(
                 "Article(articleTest:\"contains\\\"quote\") {\n" +
-                        "    numberOfPages\n" +
-                        "}",
+                        "  numberOfPages\n" +
+                        "}\n",
                 query
         );
     }
