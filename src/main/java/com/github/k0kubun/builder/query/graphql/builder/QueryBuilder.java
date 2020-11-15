@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GraphQLQueryBuilder
+public class QueryBuilder
 {
     private final List<GraphQLField> fields;
 
-    public GraphQLQueryBuilder()
+    public QueryBuilder()
     {
         fields = new ArrayList<>();
     }
@@ -27,20 +27,20 @@ public class GraphQLQueryBuilder
         return builder.toString();
     }
 
-    public GraphQLQueryBuilder field(String name)
+    public QueryBuilder field(String name)
     {
         fields.add(new StringField(name));
         return this;
     }
 
-    public GraphQLQueryBuilder object(String name, GraphQLObject object)
+    public QueryBuilder object(String name, GraphQLObject object)
     {
         object.setName(name);
         fields.add(object);
         return this;
     }
 
-    public GraphQLQueryBuilder objects(String name, Integer first, GraphQLObject object)
+    public QueryBuilder objects(String name, Integer first, GraphQLObject object)
     {
         object.setName(name);
         object.setParams(ImmutableMap.of("first", first));
@@ -48,7 +48,7 @@ public class GraphQLQueryBuilder
         return this;
     }
 
-    public GraphQLQueryBuilder objects(String name, Integer first, String after, GraphQLObject object)
+    public QueryBuilder objects(String name, Integer first, String after, GraphQLObject object)
     {
         object.setName(name);
         object.setParams(ImmutableMap.of("first", first, "after", after));
@@ -56,7 +56,7 @@ public class GraphQLQueryBuilder
         return this;
     }
 
-    public GraphQLQueryBuilder object(String name, Map<String, Object> params, GraphQLObject object)
+    public QueryBuilder object(String name, Map<String, Object> params, GraphQLObject object)
     {
         object.setName(name);
         object.setParams(params);

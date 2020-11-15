@@ -4,17 +4,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class GraphQLTest
+public class GraphQLQueryBuilderTest
 {
     @Test
     public void testCreateQueryBuilder()
     {
-        assertNotNull(GraphQL.createQueryBuilder());
+        assertNotNull(GraphQLQueryBuilder.createQueryBuilder());
     }
 
     @Test
     public void testCreateObjectBuilder()
     {
-        assertNotNull(GraphQL.createObjectBuilder());
+        assertNotNull(GraphQLQueryBuilder.createObjectBuilder());
     }
 }

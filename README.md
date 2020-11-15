@@ -48,7 +48,7 @@ user(name:"k0kubun") {
 you can write code in the following way.
 
 ```java
-import com.github.k0kubun.builder.query.graphql.GraphQL;
+import com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
