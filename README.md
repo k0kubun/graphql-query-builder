@@ -52,25 +52,31 @@ import com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
-Map<String, String> userParams = new HashMap<>();
-userParams.put("name", "k0kubun");
-
-String query = GraphQL.createQueryBuilder()
-    .object("user", userParams, GraphQL.createObjectBuilder()
-        .field("name")
-        .objects("friends", 10, "Y3Vyc29yMQ==", GraphQL.createObjectBuilder()
-            .field("totalCount")
-            .object("edges", GraphQL.createObjectBuilder()
-                .field("cursor")
-                .object("node", GraphQL.createObjectBuilder()
-                    .on("User", GraphQL.createObjectBuilder()
-                        .field("name")
-                        .build()
+public class Example {
+    
+    public example() {
+    
+        Map<String, String> userParams = new HashMap<>();
+        userParams.put("name", "k0kubun");
+        
+        String query = GraphQL.createQueryBuilder()
+            .object("user", userParams, GraphQL.createObjectBuilder()
+                .field("name")
+                .objects("friends", 10, "Y3Vyc29yMQ==", GraphQL.createObjectBuilder()
+                    .field("totalCount")
+                    .object("edges", GraphQL.createObjectBuilder()
+                        .field("cursor")
+                        .object("node", GraphQL.createObjectBuilder()
+                            .on("User", GraphQL.createObjectBuilder()
+                                .field("name")
+                                .build()
+                            ).build()
+                        ).build()
                     ).build()
                 ).build()
-            ).build()
-        ).build()
-    ).build();
+            ).build();
+    }
+}
 ```
 
 ## Project Status
