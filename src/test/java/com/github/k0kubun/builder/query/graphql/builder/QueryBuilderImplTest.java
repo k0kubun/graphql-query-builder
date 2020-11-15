@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class QueryBuilderTest
+public class QueryBuilderImplTest
 {
     @Test
     public void buildEmptyQuery()
