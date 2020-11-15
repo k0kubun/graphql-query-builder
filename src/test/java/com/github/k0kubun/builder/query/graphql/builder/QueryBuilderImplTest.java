@@ -1,9 +1,15 @@
 package com.github.k0kubun.builder.query.graphql.builder;
 
 import com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder;
+import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.createObjectBuilder;
+import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.createQueryBuilder;
 import static org.junit.Assert.*;
 
 public class QueryBuilderImplTest
@@ -11,7 +17,7 @@ public class QueryBuilderImplTest
     @Test
     public void buildEmptyQuery()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
+        String query = createQueryBuilder()
                 .build();
         assertEquals("", query);
     }
@@ -19,7 +25,7 @@ public class QueryBuilderImplTest
     @Test
     public void buildFields()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
+        String query = createQueryBuilder()
                 .field("id")
                 .field("name")
                 .build();
@@ -32,8 +38,8 @@ public class QueryBuilderImplTest
     @Test
     public void buildEmptyObject()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
-                .object("query", GraphQLQueryBuilder.createObjectBuilder()
+        String query = createQueryBuilder()
+                .object("query", createObjectBuilder()
                         .build()
                 ).build();
         assertEquals(
@@ -45,8 +51,8 @@ public class QueryBuilderImplTest
     @Test
     public void buildObject()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
-                .object("query", GraphQLQueryBuilder.createObjectBuilder()
+        String query = createQueryBuilder()
+                .object("query", createObjectBuilder()
                         .field("hello")
                         .field("world")
                         .build()
@@ -62,13 +68,13 @@ public class QueryBuilderImplTest
     @Test
     public void buildNestedObject()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
-                .object("query", GraphQLQueryBuilder.createObjectBuilder()
+        String query = createQueryBuilder()
+                .object("query", createObjectBuilder()
                         .field("hello")
-                        .object("user", GraphQLQueryBuilder.createObjectBuilder()
+                        .object("user", createObjectBuilder()
                                 .field("world")
                                 .field("the")
-                                .object("nested", GraphQLQueryBuilder.createObjectBuilder()
+                                .object("nested", createObjectBuilder()
                                         .field("things")
                                         .build()
                                 ).build()
@@ -91,9 +97,9 @@ public class QueryBuilderImplTest
     @Test
     public void buildObjectWithParams()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
-                .object("user", ImmutableMap.of("login", "k0kubun"), GraphQLQueryBuilder.createObjectBuilder()
-                        .object("repository", ImmutableMap.of("name", "hamlit", "foo", 100), GraphQLQueryBuilder.createObjectBuilder()
+        String query = createQueryBuilder()
+                .object("user", ImmutableMap.of("login", "k0kubun"), createObjectBuilder()
+                        .object("repository", ImmutableMap.of("name", "hamlit", "foo", 100), createObjectBuilder()
                                 .field("id")
                                 .build()
                         ).build()
@@ -110,14 +116,14 @@ public class QueryBuilderImplTest
     @Test
     public void buildObjects()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
-                .object("user", ImmutableMap.of("name", "k0kubun"), GraphQLQueryBuilder.createObjectBuilder()
+        String query = createQueryBuilder()
+                .object("user", ImmutableMap.of("name", "k0kubun"), createObjectBuilder()
                         .field("name")
-                        .objects("friends", 10, GraphQLQueryBuilder.createObjectBuilder()
+                        .objects("friends", 10, createObjectBuilder()
                                 .field("totalCount")
-                                .object("edges", GraphQLQueryBuilder.createObjectBuilder()
+                                .object("edges", createObjectBuilder()
                                         .field("cursor")
-                                        .object("node", GraphQLQueryBuilder.createObjectBuilder()
+                                        .object("node", createObjectBuilder()
                                                 .field("name")
                                                 .build()
                                         ).build()
@@ -143,14 +149,14 @@ public class QueryBuilderImplTest
     @Test
     public void buildPaginatedObjects()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
-                .object("user", ImmutableMap.of("name", "k0kubun"), GraphQLQueryBuilder.createObjectBuilder()
+        String query = createQueryBuilder()
+                .object("user", ImmutableMap.of("name", "k0kubun"), createObjectBuilder()
                         .field("name")
-                        .objects("friends", 10, "Y3Vyc29yMQ==", GraphQLQueryBuilder.createObjectBuilder()
+                        .objects("friends", 10, "Y3Vyc29yMQ==", createObjectBuilder()
                                 .field("totalCount")
-                                .object("edges", GraphQLQueryBuilder.createObjectBuilder()
+                                .object("edges", createObjectBuilder()
                                         .field("cursor")
-                                        .object("node", GraphQLQueryBuilder.createObjectBuilder()
+                                        .object("node", createObjectBuilder()
                                                 .field("name")
                                                 .build()
                                         ).build()
@@ -176,9 +182,9 @@ public class QueryBuilderImplTest
     @Test
     public void buildInlineFragment()
     {
-        String query = GraphQLQueryBuilder.createQueryBuilder()
-                .object("node", GraphQLQueryBuilder.createObjectBuilder()
-                        .on("User", GraphQLQueryBuilder.createObjectBuilder()
+        String query = createQueryBuilder()
+                .object("node", createObjectBuilder()
+                        .on("User", createObjectBuilder()
                                 .field("id")
                                 .build()
                         ).build()
@@ -190,5 +196,21 @@ public class QueryBuilderImplTest
                         "  }\n" +
                         "}\n",
                 query);
+    }
+
+    @Test
+    public void quoteEscaped() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("articleTest", "contains\"quote");
+
+        final GraphQLObject requestedFields = createObjectBuilder().field("numberOfPages").build();
+        String query = createQueryBuilder().object("Article", params, requestedFields).build();
+
+        assertEquals(
+                "Article(articleTest:\"contains\\\"quote\") {\n" +
+                        "    numberOfPages\n" +
+                        "}",
+                query
+        );
     }
 }
