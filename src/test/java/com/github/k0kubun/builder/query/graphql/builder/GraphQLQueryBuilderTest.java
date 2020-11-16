@@ -93,14 +93,14 @@ public class GraphQLQueryBuilderTest
     {
         String query = GraphQL.createQueryBuilder()
                 .object("user", ImmutableMap.of("login", "k0kubun"), GraphQL.createObjectBuilder()
-                        .object("repository", ImmutableMap.of("name", "hamlit", "foo", 100), GraphQL.createObjectBuilder()
+                        .object("repository", ImmutableMap.of("name", "\"name\"", "foo", 100), GraphQL.createObjectBuilder()
                                 .field("id")
                                 .build()
                         ).build()
                 ).build();
         assertEquals(
                 "user(login:\"k0kubun\") {\n" +
-                        "  repository(name:\"hamlit\" foo:100) {\n" +
+                        "  repository(name:\"\\\"name\\\"\" foo:100) {\n" +
                         "    id\n" +
                         "  }\n" +
                         "}\n",
