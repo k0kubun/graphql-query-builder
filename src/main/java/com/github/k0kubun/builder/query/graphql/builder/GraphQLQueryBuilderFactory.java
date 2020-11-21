@@ -1,6 +1,6 @@
 package com.github.k0kubun.builder.query.graphql.builder;
 
-public class BuilderFactory {
+public class GraphQLQueryBuilderFactory {
 
     public ObjectBuilder buildObjectBuilder() {
         return new ObjectBuilderImpl();

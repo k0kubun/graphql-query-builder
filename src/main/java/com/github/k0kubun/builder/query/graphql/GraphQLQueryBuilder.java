@@ -1,6 +1,6 @@
 package com.github.k0kubun.builder.query.graphql;
 
-import com.github.k0kubun.builder.query.graphql.builder.BuilderFactory;
+import com.github.k0kubun.builder.query.graphql.builder.GraphQLQueryBuilderFactory;
 import com.github.k0kubun.builder.query.graphql.builder.ObjectBuilder;
 import com.github.k0kubun.builder.query.graphql.builder.QueryBuilder;
 
@@ -11,11 +11,11 @@ public class GraphQLQueryBuilder
 
     public static QueryBuilder createQueryBuilder()
     {
-        return new BuilderFactory().buildQueryBuilder();
+        return new GraphQLQueryBuilderFactory().buildQueryBuilder();
     }
 
     public static ObjectBuilder createObjectBuilder()
     {
-        return new BuilderFactory().buildObjectBuilder();
+        return new GraphQLQueryBuilderFactory().buildObjectBuilder();
     }
 }
