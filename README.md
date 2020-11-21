@@ -92,6 +92,11 @@ Experimental.
 - Variables
 - Aliases
 
+## Code style
+
+Airlift 
+* (https://github.com/airlift/codestyle)
+
 ## Release
 
 Create `~/.gradle/gradle.properties` like:
