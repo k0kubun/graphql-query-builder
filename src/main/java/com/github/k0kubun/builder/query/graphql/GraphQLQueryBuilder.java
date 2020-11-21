@@ -10,12 +10,12 @@ public class GraphQLQueryBuilder
     {
     }
 
-    public static QueryBuilder createQueryBuilder()
+    public static QueryBuilder query()
     {
         return new GraphQLQueryBuilderFactory().buildQueryBuilder();
     }
 
-    public static ObjectBuilder createObjectBuilder()
+    public static ObjectBuilder object()
     {
         return new GraphQLQueryBuilderFactory().buildObjectBuilder();
     }
