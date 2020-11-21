@@ -56,7 +56,7 @@ public class GraphQLObject
                 Object value = param.getValue();
                 if (value instanceof String) {
                     builder.append("\"");
-                    builder.append(value.toString());
+                    builder.append(value.toString().replace("\"", "\\\""));
                     builder.append("\"");
                 }
                 else {

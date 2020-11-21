@@ -1,11 +1,7 @@
 package com.github.k0kubun.builder.query.graphql.builder;
 
-import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.createObjectBuilder;
 import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.createQueryBuilder;
@@ -98,14 +94,14 @@ public class QueryBuilderImplTest
     {
         String query = createQueryBuilder()
                 .object("user", ImmutableMap.of("login", "k0kubun"), createObjectBuilder()
-                        .object("repository", ImmutableMap.of("name", "hamlit", "foo", 100), createObjectBuilder()
+                        .object("repository", ImmutableMap.of("name", "\"name\"", "foo", 100), createObjectBuilder()
                                 .field("id")
                                 .build()
                         ).build()
                 ).build();
         assertEquals(
                 "user(login:\"k0kubun\") {\n" +
-                        "  repository(name:\"hamlit\" foo:100) {\n" +
+                        "  repository(name:\"\\\"name\\\"\" foo:100) {\n" +
                         "    id\n" +
                         "  }\n" +
                         "}\n",
@@ -195,21 +191,5 @@ public class QueryBuilderImplTest
                         "  }\n" +
                         "}\n",
                 query);
-    }
-
-    @Test
-    public void escapeCharsVisible() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("articleTest", "contains\\\"quote");
-
-        final GraphQLObject requestedFields = createObjectBuilder().field("numberOfPages").build();
-        String query = createQueryBuilder().object("Article", params, requestedFields).build();
-
-        assertEquals(
-                "Article(articleTest:\"contains\\\"quote\") {\n" +
-                        "  numberOfPages\n" +
-                        "}\n",
-                query
-        );
     }
 }
