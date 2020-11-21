@@ -7,15 +7,15 @@ import java.util.Map;
 public interface QueryBuilder
 {
 
-    QueryBuilderImpl field(String name);
+    QueryBuilder field(String name);
 
-    QueryBuilderImpl object(String name, GraphQLObject object);
+    QueryBuilder object(String name, GraphQLObject object);
 
-    QueryBuilderImpl objects(String name, Integer first, GraphQLObject object);
+    QueryBuilder objects(String name, Integer first, GraphQLObject object);
 
-    QueryBuilderImpl objects(String name, Integer first, String after, GraphQLObject object);
+    QueryBuilder objects(String name, Integer first, String after, GraphQLObject object);
 
-    QueryBuilderImpl object(String name, Map<String, Object> params, GraphQLObject object);
+    QueryBuilder object(String name, Map<String, Object> params, GraphQLObject object);
 
     String build();
 }

@@ -6,17 +6,17 @@ import java.util.Map;
 
 public interface ObjectBuilder
 {
-    ObjectBuilderImpl field(String name);
+    ObjectBuilder field(String name);
 
-    ObjectBuilderImpl object(String name, GraphQLObject object);
+    ObjectBuilder object(String name, GraphQLObject object);
 
-    ObjectBuilderImpl object(String name, Map<String, Object> params, GraphQLObject object);
+    ObjectBuilder object(String name, Map<String, Object> params, GraphQLObject object);
 
-    ObjectBuilderImpl objects(String name, Integer first, GraphQLObject object);
+    ObjectBuilder objects(String name, Integer first, GraphQLObject object);
 
-    ObjectBuilderImpl objects(String name, Integer first, String after, GraphQLObject object);
+    ObjectBuilder objects(String name, Integer first, String after, GraphQLObject object);
 
-    ObjectBuilderImpl on(String name, GraphQLObject object);
+    ObjectBuilder on(String name, GraphQLObject object);
 
     GraphQLObject build();
 }
