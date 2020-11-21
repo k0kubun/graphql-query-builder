@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class GraphQLQueryBuilderImplTest
+public class GraphQLQueryBuilderTest
 {
     @Test
     public void testCreateQueryBuilder()
