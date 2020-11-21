@@ -26,7 +26,7 @@ dependencies {
 
 ## Usage
 
-To build following query,
+To build following query:
 
 ```graphql
 user(name:"k0kubun") {
@@ -45,7 +45,7 @@ user(name:"k0kubun") {
 }
 ```
 
-you can write code in the following way.
+You can write code in the following way:
 
 ```java
 import com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder;
