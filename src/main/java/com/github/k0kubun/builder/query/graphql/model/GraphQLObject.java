@@ -8,9 +8,9 @@ import java.util.Map;
 public class GraphQLObject
         implements GraphQLField
 {
+    private final List<GraphQLField> fields;
     private String name;
     private Map<String, Object> params;
-    private final List<GraphQLField> fields;
 
     public GraphQLObject(List<GraphQLField> fields)
     {

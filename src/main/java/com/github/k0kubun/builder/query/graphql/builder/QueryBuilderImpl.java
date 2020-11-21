@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-class QueryBuilderImpl implements QueryBuilder
+class QueryBuilderImpl
+        implements QueryBuilder
 {
     private final List<GraphQLField> fields;
 

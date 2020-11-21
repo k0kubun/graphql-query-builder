@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-class ObjectBuilderImpl implements ObjectBuilder
+class ObjectBuilderImpl
+        implements ObjectBuilder
 {
     private final List<GraphQLField> fields;
 

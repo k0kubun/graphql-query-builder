@@ -6,7 +6,8 @@ import com.github.k0kubun.builder.query.graphql.builder.QueryBuilder;
 
 public class GraphQLQueryBuilder
 {
-    private GraphQLQueryBuilder() {
+    private GraphQLQueryBuilder()
+    {
     }
 
     public static QueryBuilder createQueryBuilder()

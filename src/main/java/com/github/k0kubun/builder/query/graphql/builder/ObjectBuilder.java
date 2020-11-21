@@ -4,8 +4,9 @@ import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
 
 import java.util.Map;
 
-public interface ObjectBuilder {
-     ObjectBuilderImpl field(String name);
+public interface ObjectBuilder
+{
+    ObjectBuilderImpl field(String name);
 
     ObjectBuilderImpl object(String name, GraphQLObject object);
 
