@@ -11,7 +11,7 @@ GraphQL query builder for Java
     <dependency>
         <groupId>com.github.k0kubun</groupId>
         <artifactId>graphql-query-builder</artifactId>
-        <version>0.2.2</version>
+        <version>0.3.0</version>
     </dependency>
 </dependencies>
 ```
