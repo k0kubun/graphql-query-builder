@@ -20,7 +20,7 @@ GraphQL query builder for Java
 
 ```groovy
 dependencies {
-    compile 'com.github.k0kubun:graphql-query-builder:0.2.2'
+    compile 'com.github.k0kubun:graphql-query-builder:0.3.0'
 }
 ```
 
