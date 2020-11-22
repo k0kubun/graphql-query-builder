@@ -11,7 +11,7 @@ GraphQL query builder for Java
     <dependency>
         <groupId>com.github.k0kubun</groupId>
         <artifactId>graphql-query-builder</artifactId>
-        <version>0.2.2</version>
+        <version>0.3.0</version>
     </dependency>
 </dependencies>
 ```
@@ -20,13 +20,13 @@ GraphQL query builder for Java
 
 ```groovy
 dependencies {
-    compile 'com.github.k0kubun:graphql-query-builder:0.2.2'
+    compile 'com.github.k0kubun:graphql-query-builder:0.3.0'
 }
 ```
 
 ## Usage
 
-To build following query,
+To build following query:
 
 ```graphql
 user(name:"k0kubun") {
@@ -45,32 +45,38 @@ user(name:"k0kubun") {
 }
 ```
 
-you can write code in the following way.
+You can write code in the following way:
 
 ```java
-import com.github.k0kubun.builder.query.graphql.GraphQL;
+import com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
-Map<String, String> userParams = new HashMap<>();
-userParams.put("name", "k0kubun");
-
-String query = GraphQL.createQueryBuilder()
-    .object("user", userParams, GraphQL.createObjectBuilder()
-        .field("name")
-        .objects("friends", 10, "Y3Vyc29yMQ==", GraphQL.createObjectBuilder()
-            .field("totalCount")
-            .object("edges", GraphQL.createObjectBuilder()
-                .field("cursor")
-                .object("node", GraphQL.createObjectBuilder()
-                    .on("User", GraphQL.createObjectBuilder()
-                        .field("name")
-                        .build()
+public class Example {
+    
+    public example() {
+    
+        Map<String, String> userParams = new HashMap<>();
+        userParams.put("name", "k0kubun");
+        
+        String query = GraphQL.createQueryBuilder()
+            .object("user", userParams, GraphQL.createObjectBuilder()
+                .field("name")
+                .objects("friends", 10, "Y3Vyc29yMQ==", GraphQL.createObjectBuilder()
+                    .field("totalCount")
+                    .object("edges", GraphQL.createObjectBuilder()
+                        .field("cursor")
+                        .object("node", GraphQL.createObjectBuilder()
+                            .on("User", GraphQL.createObjectBuilder()
+                                .field("name")
+                                .build()
+                            ).build()
+                        ).build()
                     ).build()
                 ).build()
-            ).build()
-        ).build()
-    ).build();
+            ).build();
+    }
+}
 ```
 
 ## Project Status
@@ -85,6 +91,11 @@ Experimental.
 - Fragments
 - Variables
 - Aliases
+
+## Code style
+
+Airlift 
+* (https://github.com/airlift/codestyle)
 
 ## Release
 

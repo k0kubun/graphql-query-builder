@@ -9,37 +9,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GraphQLObjectBuilder
+class QueryBuilderImpl
+        implements QueryBuilder
 {
     private final List<GraphQLField> fields;
 
-    public GraphQLObjectBuilder()
+    public QueryBuilderImpl()
     {
         fields = new ArrayList<>();
     }
 
-    public GraphQLObjectBuilder field(String name)
+    public QueryBuilderImpl field(String name)
     {
         fields.add(new StringField(name));
         return this;
     }
 
-    public GraphQLObjectBuilder object(String name, GraphQLObject object)
+    public QueryBuilderImpl object(String name, GraphQLObject object)
     {
         object.setName(name);
         fields.add(object);
         return this;
     }
 
-    public GraphQLObjectBuilder object(String name, Map<String, Object> params, GraphQLObject object)
-    {
-        object.setName(name);
-        object.setParams(params);
-        fields.add(object);
-        return this;
-    }
-
-    public GraphQLObjectBuilder objects(String name, Integer first, GraphQLObject object)
+    public QueryBuilderImpl objects(String name, Integer first, GraphQLObject object)
     {
         object.setName(name);
         object.setParams(ImmutableMap.of("first", first));
@@ -47,7 +40,7 @@ public class GraphQLObjectBuilder
         return this;
     }
 
-    public GraphQLObjectBuilder objects(String name, Integer first, String after, GraphQLObject object)
+    public QueryBuilderImpl objects(String name, Integer first, String after, GraphQLObject object)
     {
         object.setName(name);
         object.setParams(ImmutableMap.of("first", first, "after", after));
@@ -55,15 +48,20 @@ public class GraphQLObjectBuilder
         return this;
     }
 
-    public GraphQLObjectBuilder on(String name, GraphQLObject object)
+    public QueryBuilderImpl object(String name, Map<String, Object> params, GraphQLObject object)
     {
-        object.setName("... on " + name);
-        fields.add(object); // TODO: wrap some proper class
+        object.setName(name);
+        object.setParams(params);
+        fields.add(object);
         return this;
     }
 
-    public GraphQLObject build()
+    public String build()
     {
-        return new GraphQLObject(fields);
+        StringBuilder builder = new StringBuilder();
+        for (GraphQLField field : fields) {
+            builder.append(field.indentRender(0));
+        }
+        return builder.toString();
     }
 }
