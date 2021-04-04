@@ -55,26 +55,25 @@ import java.util.Map;
 public class Example {
     
     public example() {
+    Map<String, Object> userParams =
+                    Map.of("name", "k0kubun");
     
-        Map<String, String> userParams = new HashMap<>();
-        userParams.put("name", "k0kubun");
-        
-        String query = GraphQL.createQueryBuilder()
-            .object("user", userParams, GraphQL.createObjectBuilder()
-                .field("name")
-                .objects("friends", 10, "Y3Vyc29yMQ==", GraphQL.createObjectBuilder()
-                    .field("totalCount")
-                    .object("edges", GraphQL.createObjectBuilder()
-                        .field("cursor")
-                        .object("node", GraphQL.createObjectBuilder()
-                            .on("User", GraphQL.createObjectBuilder()
-                                .field("name")
-                                .build()
+            String query = GraphQLQueryBuilder.query()
+                    .object("user", userParams, GraphQLQueryBuilder.object()
+                            .field("name")
+                            .objects("friends", 10, "Y3Vyc29yMQ==", GraphQLQueryBuilder.object()
+                                    .field("totalCount")
+                                    .object("edges", GraphQLQueryBuilder.object()
+                                            .field("cursor")
+                                            .object("node", GraphQLQueryBuilder.object()
+                                                    .on("User", GraphQLQueryBuilder.object()
+                                                            .field("name")
+                                                            .build()
+                                                    ).build()
+                                            ).build()
+                                    ).build()
                             ).build()
-                        ).build()
-                    ).build()
-                ).build()
-            ).build();
+                    ).build();
     }
 }
 ```
