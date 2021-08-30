@@ -2,6 +2,7 @@ package com.github.k0kubun.builder.query.graphql.model;
 
 import com.google.common.collect.ImmutableMap;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ public class GraphQLObject
     private final List<GraphQLField> fields;
     private String name;
     private Map<String, Object> params;
+    private GraphQLParam objectParam;
 
     public GraphQLObject(List<GraphQLField> fields)
     {
@@ -28,6 +30,10 @@ public class GraphQLObject
         this.params = params;
     }
 
+    public void setObjectParam(GraphQLParam objectParam) {
+        this.objectParam = objectParam;
+    }
+
     public List<GraphQLField> getFields()
     {
         return fields;
@@ -40,30 +46,12 @@ public class GraphQLObject
         builder.append(name);
 
         // Render params
-        if (params.size() > 0) {
-            builder.append("(");
-            boolean first = true;
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (first) {
-                    first = false;
-                }
-                else {
-                    builder.append(" ");
-                }
-
-                builder.append(param.getKey());
-                builder.append(":");
-                Object value = param.getValue();
-                if (value instanceof String) {
-                    builder.append("\"");
-                    builder.append(value.toString().replace("\"", "\\\""));
-                    builder.append("\"");
-                }
-                else {
-                    builder.append(value.toString());
-                }
+        if (objectParam != null) {
+            renderComplexParams(builder);
+        } else {
+            if (params.size() > 0) {
+                renderSingleParams(builder);
             }
-            builder.append(")");
         }
 
         builder.append(" {\n");
@@ -76,6 +64,125 @@ public class GraphQLObject
 
         builder.append("}\n");
         return builder.toString();
+    }
+
+    private void renderSingleParams(StringBuilder builder) {
+        builder.append("(");
+        boolean first = true;
+        for (Map.Entry<String, Object> param : params.entrySet()) {
+            if (first) {
+                first = false;
+            }
+            else {
+                builder.append(" ");
+            }
+
+            builder.append(param.getKey());
+            builder.append(":");
+            Object value = param.getValue();
+            if (value instanceof String) {
+                printString(builder, value);
+            }
+            else {
+                builder.append(value.toString());
+            }
+        }
+        builder.append(")");
+    }
+
+    private void renderComplexParams(StringBuilder builder) {
+        builder.append("(");
+        renderInternalObjectParam(builder, objectParam);
+        builder.append(")");
+    }
+
+    private void renderObjectParam(StringBuilder builder, Object value) {
+        builder.append("{");
+        renderInternalObjectParam(builder, value);
+        builder.append("}");
+    }
+
+    private void renderInternalObjectParam(StringBuilder builder, Object param) {
+        Field[] fields = param.getClass().getDeclaredFields();
+        boolean first = true;
+
+        for (Field classField : fields)
+        {
+            classField.setAccessible(true);
+            Object value;
+
+            try {
+                value = classField.get(param);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
+            if (value == null) {
+                continue;
+            }
+
+            if (first) {
+                first = false;
+            }
+            else {
+                builder.append(", ");
+            }
+
+            builder.append(classField.getName());
+            builder.append(":");
+
+            if (value instanceof String) {
+                printString(builder, value);
+            } else if (value instanceof Integer || value instanceof Long) {
+                builder.append(value);
+            } else if (value instanceof Boolean) {
+                renderBooleanParam(builder, value);
+            } else if (value instanceof Iterable) {
+                renderListParam(builder, value);
+            } else {
+                renderObjectParam(builder, value);
+            }
+        }
+    }
+    private void renderBooleanParam(StringBuilder builder, Object param) {
+        if (Boolean.TRUE.equals(param)) {
+            builder.append("true");
+        } else {
+            builder.append("false");
+        }
+    }
+
+    private void renderListParam(StringBuilder builder, Object param) {
+        builder.append("[");
+        Iterable list = (Iterable)param;
+        boolean first = true;
+
+        for (Object value: list) {
+            if (first) {
+                first = false;
+            }
+            else {
+                builder.append(", ");
+            }
+
+            if (value instanceof String) {
+                printString(builder, value);
+            } else if (value instanceof Integer || value instanceof Long) {
+                builder.append(value);
+            } else if (value instanceof Boolean) {
+                renderBooleanParam(builder, value);
+            } else {
+                throw new UnsupportedOperationException();
+            }
+        }
+
+        builder.append("]");
+    }
+
+    private void printString(StringBuilder builder, Object value) {
+        builder.append("\"");
+        builder.append(value.toString().replace("\"", "\\\""));
+        builder.append("\"");
     }
 
     private void printIndent(StringBuilder builder, int indent)

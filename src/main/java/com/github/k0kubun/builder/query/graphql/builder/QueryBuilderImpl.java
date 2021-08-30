@@ -1,8 +1,6 @@
 package com.github.k0kubun.builder.query.graphql.builder;
 
-import com.github.k0kubun.builder.query.graphql.model.GraphQLField;
-import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
-import com.github.k0kubun.builder.query.graphql.model.StringField;
+import com.github.k0kubun.builder.query.graphql.model.*;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.ArrayList;
@@ -52,6 +50,14 @@ class QueryBuilderImpl
     {
         object.setName(name);
         object.setParams(params);
+        fields.add(object);
+        return this;
+    }
+
+    @Override
+    public QueryBuilder object(String name, GraphQLParam params, GraphQLObject object) {
+        object.setName(name);
+        object.setObjectParam(params);
         fields.add(object);
         return this;
     }

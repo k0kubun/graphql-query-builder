@@ -1,15 +1,19 @@
 package com.github.k0kubun.builder.query.graphql;
 
+import com.github.k0kubun.builder.query.graphql.example.FilterExample;
+import com.github.k0kubun.builder.query.graphql.example.ParamExample;
+import com.github.k0kubun.builder.query.graphql.example.StatusExample;
+import com.github.k0kubun.builder.query.graphql.example.TypeExample;
+import com.github.k0kubun.builder.query.graphql.model.GraphQLObject;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
-import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.object;
-import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.query;
+import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.*;
 import static org.junit.Assert.assertEquals;
 
 public class GraphQLQueryBuilderTest
 {
-
     @Test
     public void buildEmptyQuery()
     {
@@ -110,6 +114,45 @@ public class GraphQLQueryBuilderTest
     }
 
     @Test
+    public void buildObjectWithComplexParams()
+    {
+        // Arrange
+        GraphQLObject projection = object().object("repository",
+                ImmutableMap.of("name", "name", "foo", 100),
+                object().field("id").build()).build();
+
+        StatusExample offerExample = new StatusExample();
+        offerExample.setEnabled(Boolean.FALSE);
+        offerExample.setVisible(Boolean.TRUE);
+        offerExample.setStatus(Lists.newArrayList("Active", "Pending"));
+
+        TypeExample typeExample = new TypeExample();
+        typeExample.setType(Lists.newArrayList("Candidate"));
+        typeExample.setIds(Lists.newArrayList("A1", "B2", "C3"));
+
+        FilterExample filterExample = new FilterExample();
+        filterExample.setStatus(offerExample);
+        filterExample.setTypeExample(typeExample);
+
+        ParamExample params = new ParamExample();
+        params.setUserId("123456");
+        params.setFrom(339);
+        params.setFilter(filterExample);
+
+        // Act
+        String query = query().object("user", params, projection).build();
+
+        // Assert
+        String expectedQuery = "user(userId:\"123456\", from:339, filter:{typeExample:{type:[\"Candidate\"], ids:[\"A1\", \"B2\", \"C3\"]}, status:{status:[\"Active\", \"Pending\"], enabled:false, visible:true}}) {\n" +
+                "  repository(name:\"name\" foo:100) {\n" +
+                "    id\n" +
+                "  }\n" +
+                "}\n";
+
+        assertEquals(expectedQuery, query);
+    }
+
+    @Test
     public void buildObjects()
     {
         String query = query()
@@ -193,4 +236,5 @@ public class GraphQLQueryBuilderTest
                         "}\n",
                 query);
     }
+
 }
