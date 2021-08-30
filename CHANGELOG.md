@@ -1,3 +1,7 @@
+## v0.4.1
+
+- Add support to complex parameters
+
 ## v0.4.0
 
 - Rename `GraphQL` to `GraphQLQueryBuilder` to avoid conflicts with other GraphQL libraries
