@@ -108,6 +108,10 @@ public class GraphQLObject
 
         for (Field classField : fields)
         {
+            if (classField.isSynthetic()) {
+                continue;
+            }
+
             classField.setAccessible(true);
             Object value;
 
