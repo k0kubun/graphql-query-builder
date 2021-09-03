@@ -1,3 +1,7 @@
+## v0.4.2
+
+- Ignore synthetic fields on complex parameters
+
 ## v0.4.1
 
 - Add support to complex parameters
