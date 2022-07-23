@@ -6,7 +6,6 @@ public class ParamExample implements GraphQLParam {
     private String userId;
     private Integer from;
     private FilterExample filter;
-    private Synthetic synthetic = new Synthetic();
 
     public void setFrom(Integer from) {
         this.from = from;
@@ -19,6 +18,4 @@ public class ParamExample implements GraphQLParam {
     public void setFilter(FilterExample filter) {
         this.filter = filter;
     }
-
-    class Synthetic {}
 }
