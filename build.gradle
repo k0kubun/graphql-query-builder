@@ -12,8 +12,8 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.guava:guava:29.0-jre'
-    testCompile 'junit:junit:4.12'
+    compile 'com.google.guava:guava:31.1-jre'
+    testCompile 'junit:junit:4.13.2'
 }
 
 def deployUsername = project.hasProperty('sonatypeUsername') ? sonatypeUsername : ''

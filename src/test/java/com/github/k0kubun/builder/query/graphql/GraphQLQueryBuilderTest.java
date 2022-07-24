@@ -9,6 +9,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.time.DayOfWeek;
+
 import static com.github.k0kubun.builder.query.graphql.GraphQLQueryBuilder.*;
 import static org.junit.Assert.assertEquals;
 
